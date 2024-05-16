@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lt.abe.dao.HwSubDao">
+    <!--    基于xml-->
+    <select id="findBySearch" resultType="com.lt.abe.entity.HwSub">
+        select * from hwsub ORDER BY upgrade_time desc
+        <where>
+            <if test="params != null and params.hw_name != null and params.hw_name !=''">
+                and name like concat('%', #{params.hw_name}, '%')
+            </if>
+            <if test="params != null and params.sch_id != null and params.sch_id !=''">
+                and sch_id like concat('%', #{params.sch_id}, '%')
+            </if>
+        </where>
+
+    </select>
+
+    <update id="update" parameterType="com.lt.abe.entity.HwSub">
+        UPDATE hwsub
+        SET hw_file = #{hw_file},upgrade_time=#{upgrade_time}
+        WHERE sch_id = #{sch_id} and hw_name=#{hw_name}
+    </update>
+
+    <insert id="add" parameterType="com.lt.abe.entity.HwSub">
+        INSERT INTO hwsub (hw_name,sch_id, up_college,up_class,hw_file,upgrade_time)
+        VALUES (#{hw_name}, #{sch_id},#{up_college},#{up_class}, #{hw_file},#{upgrade_time})
+    </insert>
+
+</mapper>

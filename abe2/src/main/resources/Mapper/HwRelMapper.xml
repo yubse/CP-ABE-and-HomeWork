@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lt.abe.dao.HwRelDao">
+    <!--    基于xml-->
+    <insert id="add" parameterType="com.lt.abe.entity.HwRel">
+        INSERT INTO hwrel (rel_name, rel_college,rel_file, rel_class,create_time,teacher_id)
+        VALUES (#{rel_name}, #{rel_college}, #{rel_file},#{rel_class},#{create_time},#{teacher_id})
+    </insert>
+
+    <select id="findBySearch" resultType="com.lt.abe.entity.HwRel">
+        select * from hwrel ORDER BY create_time desc
+        <where>
+            <if test="params != null and params.rel_college != null and params.rel_college !=''">
+                and rel_college like concat('%', #{params.rel_college}, '%')
+            </if>
+            <if test="params != null and params.rel_class != null and params.rel_class !=''">
+                and rel_class like concat('%', #{params.rel_class}, '%')
+            </if>
+        </where>
+
+    </select>
+
+    <update id="update" parameterType="com.lt.abe.entity.HwRel">
+        UPDATE hwrel
+        SET rel_name = #{rel_name}, rel_college = #{rel_college},rel_file = #{rel_file}, rel_class = #{rel_class},create_time=#{create_time}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteHw" parameterType="com.lt.abe.entity.HwRel">
+        DELETE FROM hwrel
+        WHERE id = #{id}
+    </delete>
+</mapper>
