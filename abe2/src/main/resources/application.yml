@@ -1,0 +1,27 @@
+server:
+  port: 8081
+
+#ip:  -h-npm
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+#    password: root
+#    url: jdbc:mysql://localhost:3306/abe?serverTimezone=UTC
+    password: root123
+    url: jdbc:mysql://10.14.7.230:3306/abe?serverTimezone=UTC
+
+  main:
+    allow-circular-references: true
+
+mybatis:
+  mapper-locations: classpath:Mapper/*.xml
+  type-aliases-package: com.lt.abe.entity
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
